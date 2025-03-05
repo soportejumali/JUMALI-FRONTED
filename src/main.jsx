@@ -1,8 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Login from './components/login';
-import Dashboard from './components/Admin/Dashboard';
+import Login from '../src/components/Login';
 import Books from './components/Admin/Books';
 import Users from './components/Admin/Users';
 import Loans from './components/Admin/Loans';
