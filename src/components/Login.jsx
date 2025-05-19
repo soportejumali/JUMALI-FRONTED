@@ -22,10 +22,25 @@ const Login = () => {
                 username,
                 password,
             });
-            const { nombreCompleto, email, role, token } = response.data;
+
+            // Verificar si el usuario está bloqueado
+            if (response.data.blocked) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Cuenta Bloqueada',
+                    text: 'Tu cuenta ha sido bloqueada. Por favor, contacta a soportebibliotecajumali@gmail.com para resolver esta situación.',
+                    confirmButtonColor: '#d97706'
+                });
+                setLoading(false);
+                return;
+            }
+
+            const { nombreCompleto, email, role, cedula, telefono, token } = response.data;
             localStorage.setItem('nombreCompleto', nombreCompleto);
             localStorage.setItem('email', email);
             localStorage.setItem('role', role);
+            localStorage.setItem('cedula', cedula);
+            localStorage.setItem('telefono', telefono);
             localStorage.setItem('token', token);
             if (role === 'administrador') {
                 navigate('/admin/dashboard');
@@ -33,7 +48,16 @@ const Login = () => {
                 navigate('/usuario/perfil');
             }
         } catch (error) {
-            setError('Error al iniciar sesión. Por favor, verifica tus credenciales.');
+            if (error.response?.status === 403) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Cuenta Bloqueada',
+                    text: 'Tu cuenta ha sido bloqueada. Por favor, contacta a soportebibliotecajumali@gmail.com para resolver esta situación.',
+                    confirmButtonColor: '#d97706'
+                });
+            } else {
+                setError('Error al iniciar sesión. Por favor, verifica tus credenciales.');
+            }
         } finally {
             setLoading(false);
         }
