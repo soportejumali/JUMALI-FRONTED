@@ -56,7 +56,7 @@ const UserCatalog = () => {
             if (result.isConfirmed) {
                 const response = await axios.post(
                     `${import.meta.env.VITE_BACKEND_URL}/api/loans`,
-                    { libro: bookId },
+                    { libroId: bookId },
                     {
                         headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
                     }
