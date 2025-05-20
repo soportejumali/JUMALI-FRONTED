@@ -12,7 +12,7 @@ const UserLoans = () => {
 
     const fetchLoans = async () => {
         try {
-            const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/loans/user`, {
+            const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/loans/user/${localStorage.getItem('userId')}  `, {
                 headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
             });
             setLoans(response.data);

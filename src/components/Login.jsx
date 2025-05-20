@@ -35,13 +35,14 @@ const Login = () => {
                 return;
             }
 
-            const { nombreCompleto, email, role, cedula, telefono, token } = response.data;
+            const { nombreCompleto, email, role, cedula, telefono, token, id } = response.data;
             localStorage.setItem('nombreCompleto', nombreCompleto);
             localStorage.setItem('email', email);
             localStorage.setItem('role', role);
             localStorage.setItem('cedula', cedula);
             localStorage.setItem('telefono', telefono);
             localStorage.setItem('token', token);
+            localStorage.setItem('userId', id);
             if (role === 'administrador') {
                 navigate('/admin/dashboard');
             } else {
