@@ -208,7 +208,7 @@ const Loans = () => {
                       </span>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                      {!loan.devuelto && (
+                      {loan.estado === 'activo' && (
                         <button
                           onClick={() => handleReturn(loan._id)}
                           className="bg-green-600 text-white px-3 py-1 rounded hover:bg-green-700"
@@ -241,7 +241,7 @@ const Loans = () => {
                   required
                 >
                   <option value="">Seleccione un libro</option>
-                  {books.map(book => (
+                  {books.filter(book => book.cantidad > 0).map(book => (
                     <option key={book._id} value={book._id}>
                       {book.titulo}
                     </option>
@@ -258,10 +258,11 @@ const Loans = () => {
                   required
                 >
                   <option value="">Seleccione un usuario</option>
-                  {users.map(user => (
-                    <option key={user._id} value={user._id}>
-                      {user.nombreCompleto}
-                    </option>
+                  {users.filter(user => user.role === 'usuario').map(user => (
+                      <option key={user._id} value={user._id}>
+                        {user.nombreCompleto}
+                      </option>
+                    
                   ))}
                 </select>
               </div>
